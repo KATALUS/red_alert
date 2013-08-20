@@ -6,7 +6,6 @@ class TestNotifier
 
   def initialize(template)
     @template = template
-    @notifier_config = { transport: :test }
   end
 end
 
@@ -15,7 +14,6 @@ describe RedAlert::Notifier do
 
   describe '#alert' do
     let(:exception) { RuntimeError.new 'something bad happened' }
-    let(:deliveries) { Mail::TestMailer.deliveries }
     let(:to) { 'recipient@example.com' }
     let(:from) { 'sender@example.com' }
     let(:mail_subject) { 'test subject %s' }

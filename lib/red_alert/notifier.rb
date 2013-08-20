@@ -12,8 +12,7 @@ module RedAlert
         subject: notification.subject,
         body: notification.body
       )
-      delivery_method = notifier_config[:transport] || :smpt
-      mail.delivery_method delivery_method, notifier_config[:transport_settings]
+      mail.delivery_method :smtp, notifier_config[:transport_settings]
       mail.deliver!
     end
 
