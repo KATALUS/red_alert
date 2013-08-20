@@ -24,6 +24,14 @@ describe RedAlert::Notification do
       subject.body.must_equal 'error: explosion happened'
     end
 
+    describe 'without subject' do
+      let(:subject_template) { nil }
+
+      it 'has nil subject' do
+        subject.subject.must_be_nil
+      end
+    end
+
     describe 'with additional data for body' do
       let(:additional_data) { { stuff: 'in body' } }
       let(:body_template) { 'error: <%= exception.to_s %> with stuff: <%= data[:stuff] %>' }

@@ -19,7 +19,7 @@ module RedAlert
       private
 
       def compile_subject(template, exception)
-        template % exception
+        template % exception unless template.nil?
       end
 
       def compile_body(template, exception, data)
