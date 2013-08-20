@@ -13,11 +13,11 @@ module RedAlert
         body: notification.body
       )
       delivery_method = notifier_config[:transport] || :smpt
-      mail.delivery_method delivery_method, {}
+      mail.delivery_method delivery_method, notifier_config[:transport_settings]
       mail.deliver!
     end
 
-    %i{ to from subject transport }.each do |name|
+    %i{ to from subject transport_settings }.each do |name|
       define_method(name){ |value| notifier_config[name] = value }
     end
   end
