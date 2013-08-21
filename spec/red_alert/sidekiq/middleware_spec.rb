@@ -33,10 +33,9 @@ describe Sidekiq::Middleware::RedAlert do
       end
     rescue => e
       actual_error = e
-    ensure
-      actual_args.length.must_equal 1
-      actual_args[0].must_equal settings
-      actual_error.must_equal error
     end
+    actual_args.length.must_equal 1
+    actual_args[0].must_equal settings
+    actual_error.must_equal error
   end
 end
