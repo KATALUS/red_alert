@@ -1,3 +1,5 @@
+require 'mail'
+
 module RedAlert
   module Notifier
     def self.included(klass)

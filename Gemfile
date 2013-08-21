@@ -4,5 +4,5 @@ gemspec
 
 group :development do
   gem 'rake'
-  gem 'mail'
+  gem 'mail', require: false
 end
