@@ -19,3 +19,7 @@ end
 def deliveries
   Mail::TestMailer.deliveries
 end
+
+def mock
+  Minitest::Mock.new
+end
