@@ -19,9 +19,9 @@ Sidekiq.configure_server do |c|
   c.server_middleware do |chain|
     chain.add Sidekiq::Middleware::RedAlert,
       to: 'recipient@example.com',
-      from: 'errors@example.com',
-      subject: "BOOM!: %s", # %s is the error message
-      smtp: {
+      from: 'sender@example.com',
+      subject: "BOOM!: %s",
+      transport_settings: {
         address: 'smtp.server.net',
         port: '587',
         user_name: 'user',
@@ -32,6 +32,23 @@ Sidekiq.configure_server do |c|
       }
   end
 end
+```
+
+## Rack Wireup
+
+```ruby
+use Rack::RedAlert,
+  to: 'recipient@example.com',
+  from: 'sender@example.com',
+  subject: "BOOM!: %s",
+  transport_settings: {
+    address: 'smtp.server.net',
+    port: '587',
+    user_name: 'user',
+    password: 'secret',
+    domain: 'example.com',
+    authentication: :plain,
+    enable_starttls_auto: true
 ```
 
 ## Contributing
