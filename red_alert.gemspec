@@ -2,6 +2,7 @@
 require File.expand_path('../lib/red_alert/version', __FILE__)
 
 Gem::Specification.new do |gem|
+  gem.author        = 'vyrak.bunleang@gmail.com'
   gem.description   = 'Middlewares for mailing errors'
   gem.summary       = 'Middlewares for mailing errors'
 
@@ -10,4 +11,6 @@ Gem::Specification.new do |gem|
   gem.name          = "red_alert"
   gem.require_paths = ["lib"]
   gem.version       = RedAlert::VERSION
+
+  gem.add_dependency 'mail', '>= 2.5.4'
 end
