@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'red_alert/sidekiq'
 
 describe RedAlert::Sidekiq::Notifier do
   subject { RedAlert::Sidekiq::Notifier.new }

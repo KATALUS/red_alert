@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'red_alert/rack'
 
 describe RedAlert::Rack::Notifier do
   subject { RedAlert::Rack::Notifier.new }

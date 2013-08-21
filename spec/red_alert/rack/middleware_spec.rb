@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'red_alert/sidekiq'
 
 describe Rack::RedAlert do
   let(:notification) { mock }

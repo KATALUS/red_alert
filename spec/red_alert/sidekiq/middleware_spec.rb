@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'red_alert/sidekiq'
 
 describe Sidekiq::Middleware::RedAlert do
   let(:notification) { mock }
