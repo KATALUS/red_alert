@@ -6,7 +6,6 @@ describe Rack::RedAlert do
   let(:error) { RuntimeError.new }
   let(:settings) { { domain: 'example.com' } }
 
-
   it 'wont alert' do
     inner = mock
     inner.expect :call, nil, [env]
