@@ -4,13 +4,32 @@ class TestNotifier
   include RedAlert::Notifier
   attr_reader :template
 
-  def initialize(template)
+  def initialize(template = '')
     @template = template
   end
 end
 
 describe RedAlert::Notifier do
-  subject { TestNotifier.new 'test template <%= exception %> |<%= data[:stuff] %>|' }
+  let(:settings) {
+    { to: 'recipient@example.com',
+      from: 'sender@example.com',
+      subject: 'something go bad',
+      transport_settings: {
+        field: 'custom'
+      }
+    }
+  }
+
+  subject { TestNotifier.build settings }
+
+  describe '::build' do
+    %w{ to from subject transport_settings }.each do |field|
+      it "builds with #{field} setting" do
+        field_sym = field.to_sym
+        subject.notifier_settings[field_sym].must_equal settings[field_sym]
+      end
+    end
+  end
 
   describe '#alert' do
     let(:exception) { RuntimeError.new 'something bad happened' }
@@ -27,6 +46,8 @@ describe RedAlert::Notifier do
       authentication: :plain,
       enable_starttls_auto: true
     } }
+
+    subject { TestNotifier.new 'test template <%= exception %> |<%= data[:stuff] %>|' }
 
     before do
       subject.to to
