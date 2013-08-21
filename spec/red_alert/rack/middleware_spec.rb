@@ -1,36 +1,34 @@
 require 'spec_helper'
 require 'red_alert/sidekiq'
 
-describe Sidekiq::Middleware::RedAlert do
+describe Rack::RedAlert do
   let(:notification) { mock }
-  let(:worker_class) { mock }
-  let(:msg) { mock }
-  let(:queue) { mock }
+  let(:env) { { 'field' => 'variable' } }
   let(:error) { RuntimeError.new }
   let(:settings) { { domain: 'example.com' } }
 
-  subject { Sidekiq::Middleware::RedAlert.new settings }
-
-  after { notification.verify }
 
   it 'wont alert' do
-    subject.call(worker_class, msg, queue) { }
+    inner = mock
+    inner.expect :call, nil, [env]
+    subject = Rack::RedAlert.new inner, settings
+    subject.call env
+    inner.verify
   end
 
   it 'alerts' do
     actual_args = nil
     actual_error = nil
-    data = {
-      worker_class: worker_class,
-      message: msg,
-      queue: queue
-    }
+    data = { env: env }
+    inner = OpenStruct.new error: error
+    def inner.call(*args); raise error end
     notification.expect :alert, nil, [error, data]
 
     begin
       action = ->(*args) { actual_args = args; notification }
-      RedAlert::Sidekiq::Notifier.stub :build, action do
-        subject.call(worker_class, msg, queue) { raise error }
+      RedAlert::Rack::Notifier.stub :build, action do
+        subject = Rack::RedAlert.new inner, settings
+        subject.call env
       end
     rescue => e
       actual_error = e
