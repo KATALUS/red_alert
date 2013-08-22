@@ -1,5 +1,3 @@
-require 'pp'
-
 module RedAlert
   module Rack
     class Notifier

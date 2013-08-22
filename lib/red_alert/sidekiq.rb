@@ -1,1 +1,2 @@
-Dir[File.expand_path("../sidekiq/*.rb", __FILE__)].each { |f| require f }
+require 'red_alert/sidekiq/notifier'
+require 'red_alert/sidekiq/middleware'

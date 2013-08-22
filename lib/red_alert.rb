@@ -1,4 +1,5 @@
 module RedAlert
+  require 'red_alert/version'
+  require 'red_alert/notification'
+  require 'red_alert/notifier'
 end
-
-Dir[File.expand_path("../red_alert/*.rb", __FILE__)].each { |f| require f }

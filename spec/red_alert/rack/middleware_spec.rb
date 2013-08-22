@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'red_alert/rack'
 
 describe Rack::RedAlert do
   let(:notification) { mock }

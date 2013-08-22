@@ -1,1 +1,2 @@
-Dir[File.expand_path("../rack/*.rb", __FILE__)].each { |f| require f }
+require 'red_alert/rack/notifier'
+require 'red_alert/rack/middleware'
