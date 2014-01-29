@@ -10,8 +10,12 @@ module RedAlert
       @notifier_settings ||= {}
     end
 
+    def filter_keys
+      PARAMS_DEFAULT_FILTERS
+    end
+
     def alert(exception, data = {})
-      cleaner = Cleaner.new(PARAMS_DEFAULT_FILTERS)
+      cleaner = Cleaner.new(filter_keys)
       cleaned_data = cleaner.scrub data
       notification = Notification.build notifier_settings[:subject], template, exception, cleaned_data
       mail = Mail.new(

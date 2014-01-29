@@ -12,11 +12,24 @@ describe RedAlert::Rack::Notifier do
   after { deliveries.clear }
 
   it 'alerts' do
+    expected = SecureRandom.hex
     begin
       raise 'boom'
     rescue => e
-      subject.alert(e, request: 'data', env: { 'in' => 'out' }).body.wont_be_nil
-      deliveries.length.must_be :>, 0
+      subject.alert(e, request: 'data', env: { 'in' => expected })
+      message = deliveries.first
+      message.body.to_s.must_include expected
+    end
+  end
+
+  it 'removes sensitive rack params' do
+    expected = SecureRandom.hex
+    begin
+      raise 'boom'
+    rescue => e
+      subject.alert(e, request: 'data', env: { 'rack.session' => expected })
+      message = deliveries.first
+      message.body.to_s.wont_include expected
     end
   end
 end

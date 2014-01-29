@@ -3,6 +3,11 @@ module RedAlert
     class Notifier
       include RedAlert::Notifier
 
+      def filter_keys
+        RACK_DEFAULT_FILTERS + PARAMS_DEFAULT_FILTERS
+      end
+
+
       def template
       <<-EMAIL
 A <%= exception.class %> occured: <%= exception %>
