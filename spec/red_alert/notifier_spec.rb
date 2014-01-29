@@ -47,7 +47,7 @@ describe RedAlert::Notifier do
       enable_starttls_auto: true
     } }
 
-    subject { TestNotifier.new 'test template <%= exception %> |<%= data[:stuff] %>|' }
+    subject { TestNotifier.new 'test template <%= exception %> |<%= data %>|' }
 
     before do
       subject.to to
@@ -67,12 +67,19 @@ describe RedAlert::Notifier do
       notification.to.must_include to
       notification.from.must_include from
       notification.subject.must_equal 'test subject something bad happened'
-      notification.body.to_s.must_equal 'test template something bad happened |here|'
+      notification.body.to_s.must_equal 'test template something bad happened |{:stuff=>"here"}|'
     end
 
     it 'uses settings' do
       result = subject.alert(exception).delivery_method.settings
       result.must_equal settings
+    end
+
+    it 'strips sensitive params' do
+      data['password'] = 'secret'
+      subject.alert exception, data
+      message = deliveries.first
+      message.body.to_s.must_include RedAlert::Cleaner::FILTERED_TEXT
     end
   end
 end

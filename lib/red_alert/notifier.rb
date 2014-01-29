@@ -11,7 +11,9 @@ module RedAlert
     end
 
     def alert(exception, data = {})
-      notification = Notification.build notifier_settings[:subject], template, exception, data
+      cleaner = Cleaner.new(PARAMS_DEFAULT_FILTERS)
+      cleaned_data = cleaner.scrub data
+      notification = Notification.build notifier_settings[:subject], template, exception, cleaned_data
       mail = Mail.new(
         to: notifier_settings[:to],
         from: notifier_settings[:from],
