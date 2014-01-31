@@ -13,4 +13,5 @@ Gem::Specification.new do |gem|
   gem.version       = RedAlert::VERSION
 
   gem.add_dependency 'mail', '>= 2.5.4'
+  gem.add_development_dependency 'rake'
 end
