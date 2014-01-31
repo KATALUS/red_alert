@@ -28,7 +28,7 @@ module RedAlert
       mail.deliver!
     end
 
-    %i{ to from subject transport_settings }.each do |name|
+    %w{ to from subject transport_settings }.map(&:to_sym).each do |name|
       define_method(name){ |value| notifier_settings[name] = value }
     end
 
