@@ -15,7 +15,7 @@ describe RedAlert::Sidekiq::Notifier do
     begin
       raise 'boom'
     rescue => e
-      subject.alert(e, message: { 'args' => ['something', 'useful'] }).body.wont_be_nil
+      subject.alert(e, :message => { 'args' => ['something', 'useful'] }).body.wont_be_nil
       deliveries.length.must_be :>, 0
     end
   end

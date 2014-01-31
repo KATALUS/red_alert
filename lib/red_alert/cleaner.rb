@@ -26,7 +26,7 @@ module RedAlert
       if value.respond_to? :to_ary
         value.map{|v| format v, stack + [value.object_id]}
       elsif value.respond_to? :to_hash
-        value.each_with_object({}){|(k,v), memo| memo[k] = format v, stack + [value.object_id]}
+        value.inject({}){|memo, (k,v)| memo[k] = format v, stack + [value.object_id]; memo}
       else
         value.nil? ? nil : value.to_s
       end

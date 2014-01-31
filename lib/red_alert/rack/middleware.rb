@@ -9,7 +9,7 @@ module Rack
       @inner.call env
     rescue => e
       notification = ::RedAlert::Rack::Notifier.build @settings
-      notification.alert e, env: env
+      notification.alert e, :env => env
       raise e
     end
   end

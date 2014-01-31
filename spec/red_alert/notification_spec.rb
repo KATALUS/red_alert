@@ -33,7 +33,7 @@ describe RedAlert::Notification do
     end
 
     describe 'with additional data for body' do
-      let(:additional_data) { { stuff: 'in body' } }
+      let(:additional_data) { { :stuff => 'in body' } }
       let(:body_template) { 'error: <%= exception.to_s %> with stuff: <%= data[:stuff] %>' }
 
       it 'has body' do

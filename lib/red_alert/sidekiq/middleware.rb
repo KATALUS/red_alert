@@ -10,9 +10,9 @@ module Sidekiq
       rescue => e
         notification = ::RedAlert::Sidekiq::Notifier.build @settings
         notification.alert e,
-          worker_class: worker_class,
-          message: message,
-          queue: queue
+          :worker_class => worker_class,
+          :message => message,
+          :queue => queue
         raise e
       end
     end

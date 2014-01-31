@@ -16,7 +16,7 @@ describe RedAlert::Rack::Notifier do
     begin
       raise 'boom'
     rescue => e
-      subject.alert(e, request: 'data', env: { 'in' => expected })
+      subject.alert(e, :request => 'data', :env => { 'in' => expected })
       message = deliveries.first
       message.body.to_s.must_include expected
     end
@@ -27,7 +27,7 @@ describe RedAlert::Rack::Notifier do
     begin
       raise 'boom'
     rescue => e
-      subject.alert(e, request: 'data', env: { 'rack.session' => expected })
+      subject.alert(e, :request => 'data', :env => { 'rack.session' => expected })
       message = deliveries.first
       message.body.to_s.wont_include expected
     end

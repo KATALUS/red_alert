@@ -10,15 +10,14 @@ class TestNotifier
 end
 
 describe RedAlert::Notifier do
-  let(:settings) {
-    { to: 'recipient@example.com',
-      from: 'sender@example.com',
-      subject: 'something go bad',
-      transport_settings: {
-        field: 'custom'
-      }
+  let(:settings) { {
+    :to => 'recipient@example.com',
+    :from => 'sender@example.com',
+    :subject => 'something go bad',
+    :transport_settings => {
+      :field => 'custom'
     }
-  }
+  }}
 
   subject { TestNotifier.build settings }
 
@@ -36,15 +35,15 @@ describe RedAlert::Notifier do
     let(:to) { 'recipient@example.com' }
     let(:from) { 'sender@example.com' }
     let(:mail_subject) { 'test subject %s' }
-    let(:data) { { stuff: 'here' } }
+    let(:data) { { :stuff => 'here' } }
     let(:settings) { {
-      domain: 'example.com',
-      address: 'smtp.sendgrid.net',
-      port: '587',
-      user_name: 'the_user',
-      password: 'secret',
-      authentication: :plain,
-      enable_starttls_auto: true
+      :domain => 'example.com',
+      :address => 'smtp.sendgrid.net',
+      :port => '587',
+      :user_name => 'the_user',
+      :password => 'secret',
+      :authentication => :plain,
+      :enable_starttls_auto => true
     } }
 
     subject { TestNotifier.new 'test template <%= exception %> |<%= data %>|' }
@@ -67,7 +66,7 @@ describe RedAlert::Notifier do
       notification.to.must_include to
       notification.from.must_include from
       notification.subject.must_equal 'test subject something bad happened'
-      notification.body.to_s.must_equal 'test template something bad happened |{:stuff=>"here"}|'
+      notification.body.to_s.must_include 'test template something bad happened'
     end
 
     it 'uses settings' do

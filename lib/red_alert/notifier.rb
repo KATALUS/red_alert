@@ -19,10 +19,10 @@ module RedAlert
       cleaned_data = cleaner.scrub data
       notification = Notification.build notifier_settings[:subject], template, exception, cleaned_data
       mail = Mail.new(
-        to: notifier_settings[:to],
-        from: notifier_settings[:from],
-        subject: notification.subject,
-        body: notification.body
+        :to => notifier_settings[:to],
+        :from => notifier_settings[:from],
+        :subject => notification.subject,
+        :body => notification.body
       )
       mail.delivery_method :smtp, notifier_settings[:transport_settings]
       mail.deliver!
