@@ -12,7 +12,7 @@ describe RedAlert::Rack::Notifier do
   after { deliveries.clear }
 
   it 'alerts' do
-    expected = SecureRandom.hex
+    expected = rand_s
     begin
       raise 'boom'
     rescue => e
@@ -23,7 +23,7 @@ describe RedAlert::Rack::Notifier do
   end
 
   it 'removes sensitive rack params' do
-    expected = SecureRandom.hex
+    expected = rand_s
     begin
       raise 'boom'
     rescue => e

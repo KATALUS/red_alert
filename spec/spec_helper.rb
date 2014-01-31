@@ -1,11 +1,10 @@
 require 'bundler/setup'
-
-$:.unshift File.expand_path('../../lib', __FILE__)
+require 'securerandom'
 require 'red_alert'
-require 'minitest/pride'
 require 'minitest/autorun'
 
 Bundler.require :development
+
 
 class Minitest::Spec
   def mock
@@ -14,6 +13,10 @@ class Minitest::Spec
 
   def deliveries
     Mail::TestMailer.deliveries
+  end
+
+  def rand_s
+    SecureRandom.hex
   end
 end
 
