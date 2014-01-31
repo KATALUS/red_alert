@@ -1,3 +1,8 @@
+# red_alert
+[![Build Status](https://travis-ci.org/KATALUS/red_alert.png?branch=master)](https://travis-ci.org/KATALUS/red_alert)
+
+Error notification middleware.
+
 ## Installation
 
 Add this line to your application's Gemfile:
